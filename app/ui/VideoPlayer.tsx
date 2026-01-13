@@ -3,11 +3,15 @@ import { useVideoPlayer, VideoView } from "expo-video";
 import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 
-const videoSource =
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+// const videoSource =
+//   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
-export default function VideoScreen() {
-  const player = useVideoPlayer(videoSource, (player) => {
+interface IProps{
+  videoUrl: string;
+}
+
+export default function VideoScreen({videoUrl}:IProps) {
+  const player = useVideoPlayer(videoUrl, (player) => {
     player.loop = true;
     player.play();
   });

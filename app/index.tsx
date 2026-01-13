@@ -1,9 +1,12 @@
-import { Text, View } from "react-native";
+import VideoPlayer from "./ui/VideoPlayer";
+import NoVideo from "./ui/NoVideo";
 
 export default function Index() {
-  return (
-    <View className="flex items-center justify-center">
-      <Text>😁</Text>
-    </View>
-  );
+  const videoUrl = '';
+
+  if (!videoUrl) {
+    return <NoVideo />;
+  }
+
+  return <VideoPlayer videoUrl={videoUrl} />;
 }
