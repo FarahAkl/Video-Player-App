@@ -1,14 +1,22 @@
-import { Image, Text, View } from "react-native";
+import LottieView from "lottie-react-native";
+import { Text, View } from "react-native";
 
 const NoVideo = () => {
   return (
-    <View className="h-full w-full flex items-center justify-center">
-      <Image
-        source={require("../../assets/images/SMCET.jpg")}
-        className="w-24 h-24 bg-black"
-      />
+    <View className="flex items-center justify-start">
+      <View className="w-full flex items-center justify-center">
+        <LottieView
+          source={require("../../assets/lotties/no-video.json")}
+          autoPlay
+          style={{
+            width: "80%",
+            height: "80%",
+          }}
+        />
+      </View>
+
       <Text className="font-bold text-xl text-purple-900">
-        No Available Video
+        اختار الدرس من المنصة
       </Text>
     </View>
   );
