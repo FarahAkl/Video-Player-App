@@ -1,16 +1,13 @@
 import * as ScreenCapture from "expo-screen-capture";
 import { useVideoPlayer, VideoView } from "expo-video";
 import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { Dimensions, View } from "react-native";
 
-// const videoSource =
-//   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-
-interface IProps{
+interface IProps {
   videoUrl: string;
 }
 
-export default function VideoScreen({videoUrl}:IProps) {
+const VideoPlayer = ({ videoUrl }: IProps) => {
   const player = useVideoPlayer(videoUrl, (player) => {
     player.loop = true;
     player.play();
@@ -23,31 +20,18 @@ export default function VideoScreen({videoUrl}:IProps) {
     };
   }, []);
 
+  const { width, height } = Dimensions.get("window");
+
   return (
-    <View style={styles.contentContainer}>
+    <View className="flex-1 items-center justify-center bg-white px-4">
       <VideoView
-        style={styles.video}
+        style={{ width: width - 32, height: height * 0.4, borderRadius: 12 }}
         player={player}
         allowsFullscreen
         allowsPictureInPicture
       />
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  contentContainer: {
-    flex: 1,
-    padding: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 50,
-  },
-  video: {
-    width: 350,
-    height: 275,
-  },
-  controlsContainer: {
-    padding: 10,
-  },
-});
+export default VideoPlayer;
