@@ -22,9 +22,7 @@ const VideoPlayer = ({ videoUrl, title }: IProps) => {
   if (error) {
     return (
       <View className="flex-1 items-center justify-center px-4">
-        <Text className="text-red-500 text-lg text-center mb-4">
-          {error}
-        </Text>
+        <Text className="text-red-500 text-lg text-center mb-4">{error}</Text>
       </View>
     );
   }
@@ -43,17 +41,19 @@ const VideoPlayer = ({ videoUrl, title }: IProps) => {
       )}
 
       {/* Video Player */}
-      <VideoView
-        style={{
-          width: '100%',
-          height: 200,
-          borderRadius: 12,
-        }}
-        player={player}
-        allowsFullscreen
-        allowsPictureInPicture
-        nativeControls
-      />
+      {!isLoading && (
+        <VideoView
+          style={{
+            width: "100%",
+            height: 200,
+            borderRadius: 12,
+          }}
+          player={player}
+          allowsFullscreen
+          allowsPictureInPicture
+          nativeControls
+        />
+      )}
     </View>
   );
 };
