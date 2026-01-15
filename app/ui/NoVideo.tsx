@@ -15,7 +15,7 @@ const NoVideo = () => {
       />
 
       <Text className="mt-10 font-bold text-2xl text-purple-900 text-center">
-        اختار الدرس من المنصة
+        أختار الدرس من المنصة
       </Text>
     </View>
   );

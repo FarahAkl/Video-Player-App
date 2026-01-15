@@ -1,29 +1,25 @@
-import * as Linking from "expo-linking";
-import { useEffect, useState } from "react";
+import { useDeepLinking } from "./hooks/useDeepLinking";
+// import { useState } from "react";
 import NoVideo from "./ui/NoVideo";
 import VideoPlayer from "./ui/VideoPlayer";
 
 export default function Index() {
-  const [videoUrl, setVideoUrl] = useState<string>("");
+  const videoData = useDeepLinking();
 
-  useEffect(() => {
-    const getInitialUrl = async () => {
-      const initialUrl = await Linking.getInitialURL();
-      if (initialUrl) {
-        // ex: myapp://play?video=https://example.com/video.mp4
-        const parsed = Linking.parse(initialUrl);
-        if (parsed.queryParams?.video) {
-          setVideoUrl(parsed.queryParams.video as string);
-        }
-      }
-    };
+  // const [videoData, ] = useState<{
+  //   url: string;
+  //   title?: string;
+  // } | null>({
+  //   url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //   title: "Big Buck Bunny",
+  // });
 
-    getInitialUrl();
-  }, []);
-  // const videoUrl =
-  //   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+  if (!videoData) return <NoVideo />;
 
-  if (!videoUrl) return <NoVideo />;
-
-  return <VideoPlayer videoUrl={videoUrl} />;
+  return (
+    <VideoPlayer
+      videoUrl={videoData.url}
+      title={videoData.title}
+    />
+  );
 }

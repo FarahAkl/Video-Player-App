@@ -1,34 +1,58 @@
-import * as ScreenCapture from "expo-screen-capture";
-import { useVideoPlayer, VideoView } from "expo-video";
-import { useEffect } from "react";
-import { Dimensions, View } from "react-native";
+import { VideoView } from "expo-video";
+import {
+  ActivityIndicator,
+  Text,
+  // useWindowDimensions,
+  View,
+} from "react-native";
+import { useScreenProtection } from "../hooks/useScreenProtection";
+import { useVideoStatus } from "../hooks/useVideoStatus";
 
 interface IProps {
   videoUrl: string;
+  title?: string;
 }
 
-const VideoPlayer = ({ videoUrl }: IProps) => {
-  const player = useVideoPlayer(videoUrl, (player) => {
-    player.loop = true;
-    player.play();
-  });
+const VideoPlayer = ({ videoUrl, title }: IProps) => {
+  // const { width, height } = useWindowDimensions();
+  const { player, isLoading, error } = useVideoStatus(videoUrl);
 
-  useEffect(() => {
-    ScreenCapture.preventScreenCaptureAsync();
-    return () => {
-      ScreenCapture.allowScreenCaptureAsync();
-    };
-  }, []);
+  useScreenProtection();
 
-  const { width, height } = Dimensions.get("window");
+  if (error) {
+    return (
+      <View className="flex-1 items-center justify-center px-4">
+        <Text className="text-red-500 text-lg text-center mb-4">
+          {error}
+        </Text>
+      </View>
+    );
+  }
 
   return (
-    <View className="flex-1 items-center justify-center bg-white px-4">
+    <View className="flex-1 items-center justify-center px-4">
+      {/* Loading Indicator */}
+      {isLoading && (
+        <View className="absolute inset-0 items-center justify-center z-20">
+          <ActivityIndicator
+            size="large"
+            color="#581c87"
+          />
+          <Text className="text-purple-900 mt-3 text-sm">Loading video...</Text>
+        </View>
+      )}
+
+      {/* Video Player */}
       <VideoView
-        style={{ width: width - 32, height: height * 0.4, borderRadius: 12 }}
+        style={{
+          width: '100%',
+          height: 200,
+          borderRadius: 12,
+        }}
         player={player}
         allowsFullscreen
         allowsPictureInPicture
+        nativeControls
       />
     </View>
   );
