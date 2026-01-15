@@ -4,7 +4,7 @@
     "slug": "video-player-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/SMCET.jpg",
+    "icon": "./assets/images/SMCET.png",
     "scheme": "videoplayerapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -24,7 +24,7 @@
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/SMCET.jpg"
+      "favicon": "./assets/images/SMCET.png"
     },
     "plugins": [
       "expo-router",
